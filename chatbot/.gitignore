@@ -1,0 +1,80 @@
+# Dependencies
+node_modules/
+**/node_modules/
+frontend/node_modules/*
+.next/
+**/.next/
+dist/
+build/
+**/*.node
+.pnp/
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.pytest_cache/
+
+# Virtual Environment
+venv/
+backend/venv/
+ENV/
+.venv/
+
+# Environment files
+.env
+.env.*
+!.env.example
+frontend/.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+
+# Build and output directories
+frontend/.next/
+frontend/dist/
+backend/dist
+out/
+build/
+coverage/
+
+# Requirements and backup files
+requirements*.txt
+*.backup
+backend/requirements*.txt
+backend/pyproject.toml.backup
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+backend/logs/
+
+# Project specific
+backend/api-docs
+backend/db/3f5dfda4-2f60-4729-90d1-e4ed438066af/
+backend/data/*
+backend/migrations/*
+frontend/src/db/*
+frontend/src/db
+supabase/migrations/*
+frontend/tsconfig.tsbuildinfo
+
+# Documentation
+docs/
+INSTALLATION.md
+backend/INSTALLATION.md
+backend/ISSUES.md
+backend/None

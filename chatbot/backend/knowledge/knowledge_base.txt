@@ -1,0 +1,33 @@
+{
+  "company_name": "Quality Improvement Programme and Continuing Education Programme, IIT Delhi",
+  "tagline": "Advancing Knowledge and Skills for Professionals",
+  "favicon_url": "https://www.google.com/s2/favicons?sz=256&domain_url=https://cepqip.iitd.ac.in/qip",
+  "logo_url": "https://logo.clearbit.com/https://cepqip.iitd.ac.in/qip?size=256",
+  "about": "The Quality Improvement Programme (QIP) and Continuing Education Programme (CEP) at IIT Delhi are initiatives aimed at enhancing the professional skills of engineers, faculty, and working professionals. These programs provide opportunities for lifelong learning and skill development through various courses and certifications, catering to the needs of different industries and sectors.",
+  "founded_year": "Unknown",
+  "leadership_team": {
+    "founder": "Unknown",
+    "co-founder": "Unknown",
+    "ceo": "Not Applicable"
+  },
+  "primary_industry": "B2B",
+  "industry_type": "Education and Professional Development",
+  "products": "Training and Development Programs, Certificates, Custom Programs for Organizations, Executive Education",
+  "achievements": "Established a reputation for providing quality education and skill development opportunities for professionals in various sectors. Collaborates with global organizations to deliver cutting-edge training programs.",
+  "social_media_links": {
+    "linkedin": [
+      "https://in.linkedin.com/company/cep-qip-iitdelhi"
+    ],
+    "twitter": [],
+    "facebook": [
+      "https://www.facebook.com/p/CEP-QIP-IIT-Delhi-100071792156305/"
+    ],
+    "instagram": [],
+    "youtube": [],
+    "tiktok": [],
+    "pinterest": [],
+    "snapchat": [],
+    "github": [],
+    "medium": []
+  }
+}

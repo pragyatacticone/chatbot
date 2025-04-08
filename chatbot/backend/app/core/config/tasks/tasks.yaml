@@ -1,0 +1,99 @@
+manager_task:
+  description: |
+    Analyze if the user's query is specifically related to the provided URL content.
+    Consider:
+    1. Does the query directly relate to information available in the URL?
+    2. Can the query be answered using content from the URL?
+    3. Is the query completely unrelated to the URL content?
+
+    Message: {message}
+    Previous conversation: {conversation_history}
+  expected_output: |
+    Query validation and routing decision:
+    - For URL-related queries: Route to Research Agent for RAG-based analysis
+    - For out-of-scope queries: Route to Chatbot Agent to explain limitations
+    - Include specific aspects of URL content to focus on if applicable
+  agent: manager_agent
+
+research_task:
+  description: |
+    Analyze URL content using RAG search to provide comprehensive insights:
+    1. Use RAG search to find relevant sections in the URL content
+    2. Process and analyze the retrieved content
+    3. Focus on accuracy and relevance to the query
+    4. Synthesize information from relevant sections
+
+    Message: {message}
+    Previous conversation: {conversation_history}
+  expected_output: |
+    A focused analysis containing:
+    - Relevant information from RAG search of URL content
+    - Direct references to specific sections of the URL
+    - Synthesized insights based on the query context
+  agent: research_agent
+
+chat_conversation:
+  description: |
+    Generate a response that:
+    1. For URL-related queries:
+       - Incorporates insights from RAG search results
+       - References specific sections of the URL content
+       - Provides clear, factual information
+    2. For out-of-scope queries:
+       - Clearly explains the system's limitations
+       - Suggests reformulating the question to focus on URL content
+       - Maintains professional tone
+
+    Message: {message}
+    Previous conversation: {conversation_history}
+  expected_output: |
+    A professional response that:
+    - Addresses URL-specific queries with accurate information
+    - Clearly communicates when queries are out of scope
+    - Provides guidance on how to ask URL-related questions
+  agent: chatbot_agent
+
+# manager_task:
+#   description: |
+#     Evaluate the user's query and determine whether it requires knowledge retrieval or direct chatbot response.
+#     Message: {message}
+#     Previous conversation: {conversation_history}
+#   expected_output: The correct agent to handle the request (Research Agent or Chatbot Agent).
+#   agent: manager_agent
+
+# research_task:
+#   description: |
+#     Retrieve factual information from the knowledge base that may be relevant to the user's message.
+#     Message: {message}
+#     Previous conversation: {conversation_history}
+#   expected_output: A list of relevant facts extracted from the knowledge base, if applicable.
+#   agent: research_agent
+
+# chat_conversation:
+#   description: |
+#     Process the user's message and generate a response based on predefined guidelines.
+#     Utilize research context when available, but adhere to response rules.
+#     Message: {message}
+#     Previous conversation: {conversation_history}
+#   expected_output: A structured response that
+#     - Engages warmly for greetings.
+#     - Provides clear answers for Goosebump App-related queries.
+#     - Politely declines unrelated requests.
+#   agent: chatbot_agent
+
+
+# research_task:
+#   description: |
+#     Research and analyze the user's message to gather relevant information.
+#     Message: {message}
+#     Previous conversation: {conversation_history}
+#   expected_output: A structured analysis of relevant information and context for the conversation
+#   agent: research_agent
+
+# chat_conversation:
+#   description: |
+#     Process the user's message and generate an appropriate response using the research context.
+#     Message: {message}
+#     Previous conversation: {conversation_history}
+#   expected_output: A natural, contextually appropriate response that addresses the user's message
+#   agent: chatbot_agent
