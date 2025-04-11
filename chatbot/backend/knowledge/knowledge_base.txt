@@ -1,45 +1,40 @@
-Product Name: Lumora SmartMug™
-Tagline: Sip Smart, Live Bright.
-Product Description:
-The Lumora SmartMug™ is a next-generation self-heating mug designed for modern lifestyles. With advanced temperature control, smartphone integration, and ambient LED lighting, it keeps your drink at the perfect temperature while elevating your desk aesthetics.
+Product Name: AetherGlow Smart Mirror
+
+Category: Smart Home / Personal Care
+
+Description:
+The AetherGlow Smart Mirror is a next-generation intelligent mirror designed for modern living spaces. Equipped with a high-resolution touch display and integrated AI, it enhances your daily routine with real-time information, beauty analysis, and wellness tracking.
 
 Key Features:
-Smart Temperature Control (Keep drinks between 120°F–145°F)
 
-Bluetooth App Integration (iOS & Android)
+AI-Powered Skin Analysis: Scans your face daily and provides personalized skincare tips.
 
-Wireless Charging Base
+Voice Assistant Integration: Compatible with Alexa and Google Assistant.
 
-Touch-Sensitive Controls
+Ambient Lighting Modes: Adjustable lighting simulates daylight, sunset, or indoor settings for perfect makeup or grooming.
 
-Color-Changing Ambient LED Ring
+Daily Briefing Display: Shows calendar, weather, news, and reminders while you get ready.
 
-Battery Life: Up to 8 hours on a full charge
+Bluetooth & Wi-Fi Connectivity: Syncs with your smartphone and smart home ecosystem.
 
-Materials:
-Double-walled ceramic with stainless steel core
+Anti-Fog & Touch Control: Stays clear in humid environments and can be controlled with gestures or touch.
 
-BPA-free plastic base
+Built-in Speakers: High-quality audio for music, calls, or virtual meetings.
 
-Matte finish with anti-slip grip
+Specifications:
 
-Available Colors:
-Midnight Black
+Display: 24” HD LCD with anti-glare coating
 
-Arctic White
+Dimensions: 28” x 20” x 1.5”
 
-Ocean Teal
+Connectivity: Wi-Fi, Bluetooth 5.2
 
-Rose Gold
+Power Supply: AC 100-240V, 50/60Hz
 
-Price: $79.99
-Target Audience:
-Remote workers
+Compatibility: iOS, Android, Windows
 
-Tech enthusiasts
+Price: $449.99
 
-Coffee and tea lovers
+Target Audience: Tech-savvy individuals, beauty enthusiasts, and professionals seeking a smarter, more efficient morning routine.
 
-Home office setups
-
-Manufacturer: Lumora Tech Inc., San Francisco, CA
+Brand: NovaCore Living
