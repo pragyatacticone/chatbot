@@ -1,33 +1,103 @@
-{
-  "company_name": "Quality Improvement Programme and Continuing Education Programme, IIT Delhi",
-  "tagline": "Advancing Knowledge and Skills for Professionals",
-  "favicon_url": "https://www.google.com/s2/favicons?sz=256&domain_url=https://cepqip.iitd.ac.in/qip",
-  "logo_url": "https://logo.clearbit.com/https://cepqip.iitd.ac.in/qip?size=256",
-  "about": "The Quality Improvement Programme (QIP) and Continuing Education Programme (CEP) at IIT Delhi are initiatives aimed at enhancing the professional skills of engineers, faculty, and working professionals. These programs provide opportunities for lifelong learning and skill development through various courses and certifications, catering to the needs of different industries and sectors.",
-  "founded_year": "Unknown",
-  "leadership_team": {
-    "founder": "Unknown",
-    "co-founder": "Unknown",
-    "ceo": "Not Applicable"
-  },
-  "primary_industry": "B2B",
-  "industry_type": "Education and Professional Development",
-  "products": "Training and Development Programs, Certificates, Custom Programs for Organizations, Executive Education",
-  "achievements": "Established a reputation for providing quality education and skill development opportunities for professionals in various sectors. Collaborates with global organizations to deliver cutting-edge training programs.",
-  "social_media_links": {
-    "linkedin": [
-      "https://in.linkedin.com/company/cep-qip-iitdelhi"
-    ],
-    "twitter": [],
-    "facebook": [
-      "https://www.facebook.com/p/CEP-QIP-IIT-Delhi-100071792156305/"
-    ],
-    "instagram": [],
-    "youtube": [],
-    "tiktok": [],
-    "pinterest": [],
-    "snapchat": [],
-    "github": [],
-    "medium": []
-  }
-}
+🏢 Company Name: Nexora Technologies
+🌐 Website:
+www.nexoratech.com
+
+🧭 Tagline:
+"Innovating the Future, One Line of Code at a Time."
+
+📝 Description:
+Nexora Technologies is a cutting-edge software development company specializing in AI-driven solutions for modern businesses. With a focus on scalable architecture and user-centered design, Nexora helps startups and enterprises build intelligent platforms that solve real-world problems.
+
+💼 Services:
+Custom AI Software Development
+
+Cloud Infrastructure & DevOps
+
+Mobile & Web App Development
+
+Data Analytics & Visualization
+
+Enterprise Automation Solutions
+
+🧠 Key Technologies:
+Python, Node.js, React, Flutter
+
+AWS, Azure, GCP
+
+TensorFlow, PyTorch, OpenAI APIs
+
+Docker, Kubernetes
+
+PostgreSQL, MongoDB, Neo4j
+
+📍 Headquarters:
+Level 9, Nexora Tower, Sector 88, Pune, Maharashtra, India
+
+👥 Team Size:
+120+ employees
+
+📆 Founded:
+2018
+
+📞 Contact:
+Email: hello@nexoratech.com
+
+Phone: +91 99777 65432
+
+LinkedIn: linkedin.com/company/nexoratech
+
+🧑‍💼 Founders
+1. Anaya Verma – Co-founder & CEO
+Background: Ex-Google engineer, specializes in scalable AI architecture.
+
+Visionary leader passionate about building tech that empowers businesses.
+
+MBA from INSEAD, B.Tech from IIT Bombay.
+
+2. Rohan Mehta – Co-founder & CTO
+Background: Full-stack engineer and machine learning expert.
+
+Ex-IBM Research with multiple patents in NLP and cloud computing.
+
+Loves clean code and chai equally.
+
+🧪 Flagship Products
+1. NexaIQ – AI-Powered Business Insights Platform
+Uses real-time data and machine learning to help businesses make smarter decisions.
+
+Features predictive analytics, trend forecasting, and automated reporting.
+
+Used by over 300+ mid-sized businesses across Asia.
+
+2. CodeAura – Developer Productivity Suite
+An AI assistant integrated with VSCode and GitHub Copilot to streamline code reviews, documentation, and testing.
+
+Helps teams reduce development time by up to 40%.
+
+3. FlowNest – Workflow Automation for Enterprises
+Drag-and-drop interface to automate HR, finance, and customer service processes.
+
+Integrated with Slack, Microsoft Teams, and Zapier.
+
+4. EchoServe – Conversational AI for Customer Support
+Multilingual chatbot system powered by GPT-4 and fine-tuned on customer support data.
+
+Deployed across fintech, e-commerce, and healthtech domains.
+
+💬 Brand Tone & Personality
+Tone of Voice:
+Clear & Confident – Straightforward, with a strong sense of expertise.
+
+Friendly & Supportive – Speaks like a trusted tech partner, not just a vendor.
+
+Forward-Thinking – Always hinting at innovation and what’s next.
+
+Brand Personality:
+Innovative – Always experimenting with new tech, loves being ahead of the curve.
+
+Empathetic – Designs products with users in mind. Listens, learns, improves.
+
+Reliable – Strong focus on uptime, security, and long-term relationships.
+
+Tech-Savvy but Human – Simplifies complex ideas without dumbing them down.
+
