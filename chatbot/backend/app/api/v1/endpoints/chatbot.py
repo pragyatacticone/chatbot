@@ -47,6 +47,6 @@ async def process_chat(request: ChatRequest) -> Dict[str, str]:
             conversation_history=request.conversation_history,
             context=context
         )
-        return result
+        return {"response": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -1,33 +1,45 @@
-{
-  "company_name": "Quality Improvement Programme and Continuing Education Programme, IIT Delhi",
-  "tagline": "Advancing Knowledge and Skills for Professionals",
-  "favicon_url": "https://www.google.com/s2/favicons?sz=256&domain_url=https://cepqip.iitd.ac.in/qip",
-  "logo_url": "https://logo.clearbit.com/https://cepqip.iitd.ac.in/qip?size=256",
-  "about": "The Quality Improvement Programme (QIP) and Continuing Education Programme (CEP) at IIT Delhi are initiatives aimed at enhancing the professional skills of engineers, faculty, and working professionals. These programs provide opportunities for lifelong learning and skill development through various courses and certifications, catering to the needs of different industries and sectors.",
-  "founded_year": "Unknown",
-  "leadership_team": {
-    "founder": "Unknown",
-    "co-founder": "Unknown",
-    "ceo": "Not Applicable"
-  },
-  "primary_industry": "B2B",
-  "industry_type": "Education and Professional Development",
-  "products": "Training and Development Programs, Certificates, Custom Programs for Organizations, Executive Education",
-  "achievements": "Established a reputation for providing quality education and skill development opportunities for professionals in various sectors. Collaborates with global organizations to deliver cutting-edge training programs.",
-  "social_media_links": {
-    "linkedin": [
-      "https://in.linkedin.com/company/cep-qip-iitdelhi"
-    ],
-    "twitter": [],
-    "facebook": [
-      "https://www.facebook.com/p/CEP-QIP-IIT-Delhi-100071792156305/"
-    ],
-    "instagram": [],
-    "youtube": [],
-    "tiktok": [],
-    "pinterest": [],
-    "snapchat": [],
-    "github": [],
-    "medium": []
-  }
-}
+Product Name: Lumora SmartMug™
+Tagline: Sip Smart, Live Bright.
+Product Description:
+The Lumora SmartMug™ is a next-generation self-heating mug designed for modern lifestyles. With advanced temperature control, smartphone integration, and ambient LED lighting, it keeps your drink at the perfect temperature while elevating your desk aesthetics.
+
+Key Features:
+Smart Temperature Control (Keep drinks between 120°F–145°F)
+
+Bluetooth App Integration (iOS & Android)
+
+Wireless Charging Base
+
+Touch-Sensitive Controls
+
+Color-Changing Ambient LED Ring
+
+Battery Life: Up to 8 hours on a full charge
+
+Materials:
+Double-walled ceramic with stainless steel core
+
+BPA-free plastic base
+
+Matte finish with anti-slip grip
+
+Available Colors:
+Midnight Black
+
+Arctic White
+
+Ocean Teal
+
+Rose Gold
+
+Price: $79.99
+Target Audience:
+Remote workers
+
+Tech enthusiasts
+
+Coffee and tea lovers
+
+Home office setups
+
+Manufacturer: Lumora Tech Inc., San Francisco, CA
