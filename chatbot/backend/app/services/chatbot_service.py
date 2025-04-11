@@ -1,5 +1,5 @@
 from crewai import Agent, Crew, Task, Process, Knowledge
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import os
@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 from pydantic import BaseModel
 import logging
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,53 +16,6 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
-
-# Define product knowledge base
-PRODUCT_KNOWLEDGE = """Product Name: Lumora SmartMug™
-Tagline: Sip Smart, Live Bright.
-Product Description:
-The Lumora SmartMug™ is a next-generation self-heating mug designed for modern lifestyles. With advanced temperature control, smartphone integration, and ambient LED lighting, it keeps your drink at the perfect temperature while elevating your desk aesthetics.
-
-Key Features:
-Smart Temperature Control (Keep drinks between 120°F–145°F)
-
-Bluetooth App Integration (iOS & Android)
-
-Wireless Charging Base
-
-Touch-Sensitive Controls
-
-Color-Changing Ambient LED Ring
-
-Battery Life: Up to 8 hours on a full charge
-
-Materials:
-Double-walled ceramic with stainless steel core
-
-BPA-free plastic base
-
-Matte finish with anti-slip grip
-
-Available Colors:
-Midnight Black
-
-Arctic White
-
-Ocean Teal
-
-Rose Gold
-
-Price: $79.99
-Target Audience:
-Remote workers
-
-Tech enthusiasts
-
-Coffee and tea lovers
-
-Home office setups
-
-Manufacturer: Lumora Tech Inc., San Francisco, CA"""
 
 class Message(BaseModel):
     role: str
@@ -81,12 +35,8 @@ class ChatbotService:
         # Load configurations
         self.load_configs()
         
-        # Initialize knowledge base with string source
-        string_source = StringKnowledgeSource(content=PRODUCT_KNOWLEDGE)
-        self.knowledge = Knowledge(
-            collection_name="product_knowledge",
-            sources=[string_source]
-        )
+        # Initialize knowledge base
+        self.load_knowledge()
 
     def load_configs(self):
         """Load agent and task configurations from YAML files"""
@@ -99,6 +49,25 @@ class ChatbotService:
         # Load task configurations
         with open(config_dir / 'tasks' / 'tasks.yaml', 'r') as f:
             self.task_configs = yaml.safe_load(f)
+
+    def load_knowledge(self):
+        """Load or reload the knowledge base from file"""
+        logger.info("Loading knowledge base...")
+        knowledge_file = Path(__file__).parent.parent.parent / 'knowledge' / 'knowledge_base.txt'
+        
+        # Add timestamp to collection name to force refresh
+        collection_name = f"product_knowledge_{int(time.time())}"
+        
+        file_source = TextFileKnowledgeSource(file_path=knowledge_file.absolute())
+        self.knowledge = Knowledge(
+            collection_name=collection_name,
+            sources=[file_source]
+        )
+        logger.info(f"Knowledge base loaded with collection: {collection_name}")
+
+    def reload_knowledge(self):
+        """Explicitly reload the knowledge base"""
+        self.load_knowledge()
 
     def create_agent(self, agent_type: str) -> Agent:
         """Create an agent based on YAML configuration"""
