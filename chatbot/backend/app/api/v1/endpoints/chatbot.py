@@ -20,6 +20,9 @@ class UrlResponse(BaseModel):
     success: bool
     message: str
 
+class SuggestedQuestionsResponse(BaseModel):
+    questions: List[str]
+
 @router.post("/submit-url", response_model=UrlResponse)
 async def submit_url(request: UrlRequest) -> Dict[str, str]:
     try:
@@ -48,5 +51,16 @@ async def process_chat(request: ChatRequest) -> Dict[str, str]:
             context=context
         )
         return {"response": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/suggested-questions", response_model=SuggestedQuestionsResponse)
+async def get_suggested_questions() -> Dict[str, List[str]]:
+    """Get the list of suggested questions"""
+    try:
+        # Generate questions if not already generated
+        if not chatbot_service.suggested_questions:
+            await chatbot_service.initialize_suggested_questions()
+        return {"questions": chatbot_service.suggested_questions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

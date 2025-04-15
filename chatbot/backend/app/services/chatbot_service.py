@@ -37,6 +37,18 @@ class ChatbotService:
         
         # Initialize knowledge base
         self.load_knowledge()
+        
+        # Initialize suggested questions as empty list
+        self._suggested_questions = []
+
+    @property
+    def suggested_questions(self):
+        """Get the suggested questions, generating them if not already generated"""
+        return self._suggested_questions
+
+    async def initialize_suggested_questions(self):
+        """Initialize the suggested questions"""
+        self._suggested_questions = await self.generate_suggested_questions()
 
     def load_configs(self):
         """Load agent and task configurations from YAML files"""
@@ -135,6 +147,34 @@ class ChatbotService:
         except Exception as e:
             logger.error(f"Error processing message: {str(e)}")
             raise
+
+    async def generate_suggested_questions(self) -> List[str]:
+        """Generate suggested questions using the question generator agent"""
+        try:
+            logger.info("\n=== GENERATING SUGGESTED QUESTIONS ===")
+            
+            # Create question generator agent
+            question_generator = self.create_agent('question_generator_agent')
+            
+            # Create and execute task
+            task = self.create_task('question_generator_task', question_generator)
+            crew = Crew(
+                agents=[question_generator],
+                tasks=[task],
+                verbose=True
+            )
+            
+            result = crew.kickoff()
+            
+            # Parse the result into a list of questions
+            questions = [q.strip() for q in str(result).split('\n') if q.strip()]
+            logger.info(f"Generated {len(questions)} suggested questions")
+            
+            return questions
+            
+        except Exception as e:
+            logger.error(f"Error generating suggested questions: {str(e)}")
+            return []
 
 # Create a singleton instance
 chatbot_service = ChatbotService()

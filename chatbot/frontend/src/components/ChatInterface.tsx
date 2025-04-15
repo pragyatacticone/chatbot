@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -17,6 +17,34 @@ export default function ChatInterface() {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
+
+    // Fetch suggested questions when component mounts
+    useEffect(() => {
+        fetchSuggestedQuestions();
+    }, []);
+
+    const fetchSuggestedQuestions = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/suggested-questions');
+            if (!response.ok) {
+                throw new Error('Failed to fetch suggested questions');
+            }
+            const data = await response.json();
+            if (Array.isArray(data.questions)) {
+                setSuggestedQuestions(data.questions);
+            } else {
+                console.error('Invalid response format for suggested questions');
+            }
+        } catch (error) {
+            console.error('Error fetching suggested questions:', error);
+            setSuggestedQuestions([]); // Set empty array on error
+        }
+    };
+
+    const handleQuestionClick = (question: string) => {
+        setInput(question);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -57,6 +85,27 @@ export default function ChatInterface() {
     return (
         <div className="flex flex-col max-w-2xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg flex flex-col">
+                {/* Suggested Questions Section */}
+                {suggestedQuestions.length > 0 && (
+                    <div className="p-4 border-b">
+                        <h3 className="text-lg font-semibold mb-3 text-gray-700">
+                            Questions? Your personal wellness assistant is here to help.
+                        </h3>
+                        <div className="space-y-2">
+                            {suggestedQuestions.map((question, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleQuestionClick(question)}
+                                    className="w-full text-left p-3 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700"
+                                >
+                                    {question}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Chat Input Section */}
                 <div className="p-4 border-b">
                     <form onSubmit={handleSubmit} className="flex gap-2">
                         <input
