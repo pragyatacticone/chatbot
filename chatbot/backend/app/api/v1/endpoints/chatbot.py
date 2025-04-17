@@ -56,11 +56,9 @@ async def process_chat(request: ChatRequest) -> Dict[str, str]:
 
 @router.get("/suggested-questions", response_model=SuggestedQuestionsResponse)
 async def get_suggested_questions() -> Dict[str, List[str]]:
-    """Get the list of suggested questions"""
+    """Get a fresh list of suggested questions"""
     try:
-        # Generate questions if not already generated
-        if not chatbot_service.suggested_questions:
-            await chatbot_service.initialize_suggested_questions()
-        return {"questions": chatbot_service.suggested_questions}
+        questions = await chatbot_service.generate_suggested_questions()
+        return {"questions": questions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -1,40 +1,31 @@
 product_expert_task:
   description: |
-    Answer the user's product-related query using the knowledge base as your reference.
+    Answer the user's question briefly using only the product knowledge base.
 
-    1. Determine whether the user’s question is clearly related to the product and its features, usage, or specifications
-    2. If so:
-       - Provide an informative, friendly, and accurate response using knowledge from the knowledge base
-       - You may summarize or explain content if needed to make the answer more useful
-       - Use bullet points for listing features or comparisons
-    3. If the question is not related or no information is found:
-       - Say that the information isn’t available in the knowledge base
-       - Suggest asking about a covered feature or use case
+    1. Check if the question is about the product or its details
+    2. If so, respond with:
+       - A short, friendly explanation (2 or 3 sentences max)
+       - Use plain language and highlight key points
+    3. If the topic is not in the knowledge base:
+       - Reply with: "That information isn't available in the knowledge base"
 
     Message: {message}
     Previous conversation: {conversation_history}
   expected_output: |
-    A clear, helpful answer that:
-    - Addresses the user’s question about the product using knowledge base content
-    - OR informs them politely that the information is not available
-    - May rephrase or clarify content, but must not invent new information
+    A concise, clear answer using only the knowledge base, ideally no more than 2 or 3 sentences. If the answer is not covered, say so directly.
   agent: product_expert_agent
 
 question_generator_task:
   description: |
-    Analyze the knowledge base and generate interesting, product-specific questions that users might ask.
+    Based on the knowledge base, generate 3 short follow-up questions a user might ask next.
 
-    1. Read the knowledge base to understand the product's features, value, and use cases
-    2. Generate 3 thoughtful and specific questions that:
-       - Reflect real user interests or decision-making needs
-       - Highlight useful features, benefits, comparisons, or usage scenarios
-       - Are grounded in the actual knowledge base content (no made-up details)
-    3. Vary the format (e.g., how-to, feature-specific, comparison, benefit-driven)
+    1. Read the knowledge base for product details
+    2. Generate 3 short, clear follow-up questions
+       - Keep each question under 12 words
+       - Use casual, helpful phrasing
+    3. Questions must be relevant to the product and covered by the knowledge base
     4. Format each question on a new line
 
   expected_output: |
-    A list of 3 user-focused, product-related questions, one per line, that:
-    - Are inspired by the knowledge base
-    - Explore meaningful product details or use cases
-    - Would help a user better understand or evaluate the product
+    A list of 3 short and relevant product-related questions, one per line. Each should be clear, helpful, and based entirely on the knowledge base.
   agent: question_generator_agent
