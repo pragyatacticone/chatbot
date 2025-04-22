@@ -9,6 +9,8 @@ from typing import List, Dict, Optional
 from pydantic import BaseModel
 import logging
 import time
+from supabase import create_client, Client
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,6 +33,14 @@ class ChatbotService:
             temperature=0.2,
             api_key=os.getenv("OPENAI_API_KEY")
         )
+        
+        # Initialize Supabase client
+        supabase_url = os.getenv("SUPABASE_URL")
+        supabase_key = os.getenv("SUPABASE_KEY")
+        self.supabase: Client = create_client(supabase_url, supabase_key)
+        
+        # Hardcoded product ID - can be changed later when real IDs are available
+        self.product_id = "DEMO_PRODUCT_001"
         
         # Load configurations
         self.load_configs()
@@ -112,12 +122,28 @@ class ChatbotService:
             agent=agent
         )
 
+    async def save_user_query(self, query: str) -> None:
+        """Save the user query to Supabase"""
+        try:
+            data = {
+                "query": query,
+                "timestamp": datetime.now().isoformat(),
+                "product_id": self.product_id
+            }
+            self.supabase.table("user_queries").insert(data).execute()
+            logger.info(f"Successfully saved user query to Supabase with product ID: {self.product_id}")
+        except Exception as e:
+            logger.error(f"Error saving query to Supabase: {str(e)}")
+
     async def process_message(self, message: str, conversation_history: Optional[List[Message]] = None, context: Optional[Dict] = None) -> str:
         """Process the incoming chat message using the CrewAI system"""
         try:
             logger.info("\n" + "=" * 50)
             logger.info("STARTING CHAT PROCESSING")
             logger.info("=" * 50 + "\n")
+            
+            # Save user query to Supabase
+            await self.save_user_query(message)
             
             # Create product expert agent
             product_expert = self.create_agent('product_expert_agent')
