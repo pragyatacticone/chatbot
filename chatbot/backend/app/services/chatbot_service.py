@@ -1,5 +1,4 @@
-from crewai import Agent, Crew, Task, Process
-from crewai_tools import TXTSearchTool, WebsiteSearchTool
+from crewai import Agent, Crew, Task, Process, Knowledge
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
@@ -9,14 +8,13 @@ from pathlib import Path
 from typing import List, Dict, Optional
 from pydantic import BaseModel
 import logging
-import urllib3
+import time
+from supabase import create_client, Client
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Configure SSL warning suppression (only for development)
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Load environment variables
 load_dotenv()
@@ -36,45 +34,31 @@ class ChatbotService:
             api_key=os.getenv("OPENAI_API_KEY")
         )
         
+        # Initialize Supabase client
+        supabase_url = os.getenv("SUPABASE_URL")
+        supabase_key = os.getenv("SUPABASE_KEY")
+        self.supabase: Client = create_client(supabase_url, supabase_key)
+        
+        # Hardcoded product ID - can be changed later when real IDs are available
+        self.product_id = "DEMO_PRODUCT_001"
+        
         # Load configurations
         self.load_configs()
         
-        # Initialize TextFileKnowledgeSource
-        self.text_source = TextFileKnowledgeSource(
-            file_paths=["../knowledge/knowledge_base.txt"]
-        )
+        # Initialize knowledge base
+        self.load_knowledge()
         
-        # Initialize WebsiteSearchTool with enhanced configuration
-        self.website_search_tool = WebsiteSearchTool(
-            requests_kwargs={
-                "verify": False,  # Disable SSL verification
-                "timeout": 30,    # Increase timeout
-                "headers": {      # Add user agent
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-                }
-            }
-        )
+        # Initialize suggested questions as empty list
+        self._suggested_questions = []
 
-        # Add error handling for website search
-        def website_search_with_retry(self, query: str, max_retries: int = 3) -> str:
-            """Search website with retry mechanism"""
-            for attempt in range(max_retries):
-                try:
-                    result = self.website_search_tool.search(query)
-                    if result:
-                        return result
-                    logger.warning(f"Empty result on attempt {attempt + 1}")
-                except Exception as e:
-                    logger.error(f"Error on attempt {attempt + 1}: {str(e)}")
-                    if attempt == max_retries - 1:
-                        raise
-            return "Unable to fetch data from the website"
+    @property
+    def suggested_questions(self):
+        """Get the suggested questions, generating them if not already generated"""
+        return self._suggested_questions
 
-        # Initialize TXTSearchTool for local file search capability
-        self.knowledge_tool = TXTSearchTool(txt='../knowledge/knowledge_base.txt')
-
-        # Add text_source to the research agent
-        self.research_agent_knowledge_sources = [self.text_source]
+    async def initialize_suggested_questions(self):
+        """Initialize the suggested questions"""
+        self._suggested_questions = await self.generate_suggested_questions()
 
     def load_configs(self):
         """Load agent and task configurations from YAML files"""
@@ -88,17 +72,28 @@ class ChatbotService:
         with open(config_dir / 'tasks' / 'tasks.yaml', 'r') as f:
             self.task_configs = yaml.safe_load(f)
 
+    def load_knowledge(self):
+        """Load or reload the knowledge base from file"""
+        logger.info("Loading knowledge base...")
+        knowledge_file = Path(__file__).parent.parent.parent / 'knowledge' / 'knowledge_base.txt'
+        
+        # Add timestamp to collection name to force refresh
+        collection_name = f"product_knowledge_{int(time.time())}"
+        
+        file_source = TextFileKnowledgeSource(file_path=knowledge_file.absolute())
+        self.knowledge = Knowledge(
+            collection_name=collection_name,
+            sources=[file_source]
+        )
+        logger.info(f"Knowledge base loaded with collection: {collection_name}")
+
+    def reload_knowledge(self):
+        """Explicitly reload the knowledge base"""
+        self.load_knowledge()
+
     def create_agent(self, agent_type: str) -> Agent:
         """Create an agent based on YAML configuration"""
         config = self.agent_configs[agent_type]
-        knowledge_sources = []
-        if agent_type == 'research_agent':
-            knowledge_sources = self.research_agent_knowledge_sources
-        
-        tools = []
-        if agent_type == 'research_agent':
-            tools.append(self.website_search_tool)
-            tools.append(self.knowledge_tool)
         
         return Agent(
             role=config['role'],
@@ -106,8 +101,7 @@ class ChatbotService:
             backstory=config['backstory'],
             llm=self.llm,
             verbose=True,
-            tools=tools,
-            knowledge_sources=knowledge_sources
+            knowledge=self.knowledge
         )
 
     def create_task(self, task_type: str, agent: Agent, context: Optional[Dict] = None) -> Task:
@@ -120,7 +114,7 @@ class ChatbotService:
         # Format the description with context if provided
         description = config['description']
         if context:
-            description += f"\n\nContext:\n{context}"
+            description = description.format(**context)
         
         return Task(
             description=description,
@@ -128,19 +122,33 @@ class ChatbotService:
             agent=agent
         )
 
-    async def process_message(self, message: str, conversation_history: Optional[List[Message]] = None, context: Optional[Dict] = None) -> Dict[str, str]:
+    async def save_user_query(self, query: str) -> None:
+        """Save the user query to Supabase"""
+        try:
+            data = {
+                "query": query,
+                "timestamp": datetime.now().isoformat(),
+                "product_id": self.product_id
+            }
+            self.supabase.table("user_queries").insert(data).execute()
+            logger.info(f"Successfully saved user query to Supabase with product ID: {self.product_id}")
+        except Exception as e:
+            logger.error(f"Error saving query to Supabase: {str(e)}")
+
+    async def process_message(self, message: str, conversation_history: Optional[List[Message]] = None, context: Optional[Dict] = None) -> str:
         """Process the incoming chat message using the CrewAI system"""
         try:
             logger.info("\n" + "=" * 50)
             logger.info("STARTING CHAT PROCESSING")
             logger.info("=" * 50 + "\n")
             
-            # Create agents
-            research_agent = self.create_agent('research_agent')
-            chat_agent = self.create_agent('chatbot_agent')
-            manager = self.create_agent('manager_agent')
+            # Save user query to Supabase
+            await self.save_user_query(message)
             
-            # Prepare conversation context if not provided
+            # Create product expert agent
+            product_expert = self.create_agent('product_expert_agent')
+            
+            # Prepare conversation context
             if context is None:
                 context = {
                     "message": message,
@@ -150,31 +158,49 @@ class ChatbotService:
                     ]
                 }
             
-            # Create tasks
-            research_task = self.create_task('research_task', research_agent, context)
-            chat_task = self.create_task('chat_conversation', chat_agent, context)
-            manager_task = self.create_task('manager_task', manager, context)
-            
-            # Set up task dependencies
-            chat_task.context = [research_task]
-            
-            # Create and run the crew
+            # Create and execute task
+            task = self.create_task('product_expert_task', product_expert, context)
             crew = Crew(
-                agents=[research_agent, chat_agent],
-                tasks=[research_task, chat_task],
-                verbose=True,
-                manager_agent=manager,
-                process=Process.hierarchical
+                agents=[product_expert],
+                tasks=[task],
+                verbose=True
             )
             
-            # Run the crew and get the result
             result = crew.kickoff()
             
-            return {"response": str(result)}
+            return str(result)
             
         except Exception as e:
             logger.error(f"Error processing message: {str(e)}")
-            raise Exception(f"Error processing message: {str(e)}")
+            raise
+
+    async def generate_suggested_questions(self) -> List[str]:
+        """Generate suggested questions using the question generator agent"""
+        try:
+            logger.info("\n=== GENERATING SUGGESTED QUESTIONS ===")
+            
+            # Create question generator agent
+            question_generator = self.create_agent('question_generator_agent')
+            
+            # Create and execute task
+            task = self.create_task('question_generator_task', question_generator)
+            crew = Crew(
+                agents=[question_generator],
+                tasks=[task],
+                verbose=True
+            )
+            
+            result = crew.kickoff()
+            
+            # Parse the result into a list of questions
+            questions = [q.strip() for q in str(result).split('\n') if q.strip()]
+            logger.info(f"Generated {len(questions)} suggested questions")
+            
+            return questions
+            
+        except Exception as e:
+            logger.error(f"Error generating suggested questions: {str(e)}")
+            return []
 
 # Create a singleton instance
 chatbot_service = ChatbotService()
