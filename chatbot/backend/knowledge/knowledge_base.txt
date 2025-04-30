@@ -1,33 +1,35 @@
-{
-  "company_name": "Quality Improvement Programme and Continuing Education Programme, IIT Delhi",
-  "tagline": "Advancing Knowledge and Skills for Professionals",
-  "favicon_url": "https://www.google.com/s2/favicons?sz=256&domain_url=https://cepqip.iitd.ac.in/qip",
-  "logo_url": "https://logo.clearbit.com/https://cepqip.iitd.ac.in/qip?size=256",
-  "about": "The Quality Improvement Programme (QIP) and Continuing Education Programme (CEP) at IIT Delhi are initiatives aimed at enhancing the professional skills of engineers, faculty, and working professionals. These programs provide opportunities for lifelong learning and skill development through various courses and certifications, catering to the needs of different industries and sectors.",
-  "founded_year": "Unknown",
-  "leadership_team": {
-    "founder": "Unknown",
-    "co-founder": "Unknown",
-    "ceo": "Not Applicable"
-  },
-  "primary_industry": "B2B",
-  "industry_type": "Education and Professional Development",
-  "products": "Training and Development Programs, Certificates, Custom Programs for Organizations, Executive Education",
-  "achievements": "Established a reputation for providing quality education and skill development opportunities for professionals in various sectors. Collaborates with global organizations to deliver cutting-edge training programs.",
-  "social_media_links": {
-    "linkedin": [
-      "https://in.linkedin.com/company/cep-qip-iitdelhi"
-    ],
-    "twitter": [],
-    "facebook": [
-      "https://www.facebook.com/p/CEP-QIP-IIT-Delhi-100071792156305/"
-    ],
-    "instagram": [],
-    "youtube": [],
-    "tiktok": [],
-    "pinterest": [],
-    "snapchat": [],
-    "github": [],
-    "medium": []
-  }
-}
+🧵 Product Overview
+Name: Slim Stone Jeans
+
+Color: Light Gray
+
+Price: ₹12,400 (1 unit), ₹22,300 (2-pack, 10% off)
+
+Available Sizes:
+Waist: 28 to 40
+
+Inseam: 30", 32", 34"
+
+Fit: Classic slim fit—slim through the hip and leg without being too tight. Mid-rise with a zipper fly.     
+    
+Leg Opening: 15.5" (based on a 32" waist)
+
+Stretch Factor: 17%
+
+Weight: 11.5 oz (medium-weight)
+
+Fabric: 98% Cotton, 2% Elastane
+
+Weave: Left-hand weave for an ultra-soft feel​
+
+🧼 Care Instructions
+Machine wash cold, inside out
+
+Tumble dry or hang dry
+
+Washing often not required​
+
+🚚 Shipping & Returns
+International Shipping: 2–10 business days via local carriers
+
+Returns: Accepted within 30 days of delivery; refunds issued as store credit (Mott & Bow gift card
